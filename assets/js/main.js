@@ -133,6 +133,34 @@
             $(this).parents('.table').find('input:checkbox').prop('checked', this.checked);
         });
 
+        /*-------------------------------------
+          Select 2 Init
+      -------------------------------------*/
+        if ($.fn.select2 !== undefined) {
+            $('.select2').select2({
+                width: '100%'
+            });
+        }
+
+        /*-------------------------------------
+              Date Picker
+          -------------------------------------*/
+        if ($.fn.datepicker !== undefined) {
+            $('.air-datepicker').datepicker({
+                language: {
+                    days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+                    daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                    daysMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                    months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    today: 'Today',
+                    clear: 'Clear',
+                    dateFormat: 'dd/mm/yyyy',
+                    firstDay: 0
+                }
+            });
+        }
+
     })
 
 
