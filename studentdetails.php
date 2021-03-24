@@ -1,3 +1,26 @@
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "pundra_cse_dept";
+require_once('./lib/application/databaseconfig.php');
+
+if (isset($_GET["reg_id"])) {
+    $conn = connect_database($servername, $username, $password, $dbname);
+
+    $reg_id = $_GET["reg_id"];
+
+    if ($conn->connect_errno) {
+        $msg = "<p class = 'alert alert-danger '><b>ERROR!</b> Database connection error occured <button class='close' data-dismiss='alert'>&times;</button></p>";
+    } else {
+        $sql = "SELECT * FROM st_info WHERE registration_id = '$reg_id'";
+        $result = $conn->query($sql);
+    }
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,90 +76,81 @@
                 <!-- Breadcubs Area End Here -->
                 <!-- Dashboard Content Start Here -->
                 <!-- Student Details Area Start Here -->
-                <div class="card height-auto">
-                    <div class="card-body">
-                        <div class="heading-layout1">
-                            <div class="item-title">
-                                <h3>About Me</h3>
-                            </div>
-                        </div>
-                        <div class="single-info-details">
-                            <div class="item-img">
-                                <img src="assets/img/figure/student1.jpg" alt="student">
-                            </div>
-                            <div class="item-content">
-                                <div class="header-inline item-header">
-                                    <h3 class="text-dark-medium font-medium">Jessia Rose</h3>
+                <?php while ($st_data = $result->fetch_assoc()) : ?>
+                    <div class="card height-auto">
+                        <div class="card-body">
+                            <div class="heading-layout1">
+                                <div class="item-title">
+                                    <h3>About: <?php echo $st_data["first_name"] . " " . $st_data["last_name"]; ?></h3>
                                 </div>
-                                <p>Aliquam erat volutpat. Curabiene natis massa sedde lacu stiquen sodale
-                                    word moun taiery.Aliquam erat volutpaturabiene natis massa sedde sodale
-                                    word moun taiery.</p>
-                                <div class="info-table table-responsive">
-                                    <table class="table text-nowrap">
-                                        <tbody>
-                                            <tr>
-                                                <td>Name:</td>
-                                                <td class="font-medium text-dark-medium">Jessia Rose</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gender:</td>
-                                                <td class="font-medium text-dark-medium">Female</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Father Name:</td>
-                                                <td class="font-medium text-dark-medium">Steve Jones</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mother Name:</td>
-                                                <td class="font-medium text-dark-medium">Naomi Rose</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Date Of Birth:</td>
-                                                <td class="font-medium text-dark-medium">07.08.2016</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Religion:</td>
-                                                <td class="font-medium text-dark-medium">Islam</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Father Occupation:</td>
-                                                <td class="font-medium text-dark-medium">Graphic Designer</td>
-                                            </tr>
-                                            <tr>
-                                                <td>E-mail:</td>
-                                                <td class="font-medium text-dark-medium">jessiarose@gmail.com</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Admission Date:</td>
-                                                <td class="font-medium text-dark-medium">07.08.2019</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Class:</td>
-                                                <td class="font-medium text-dark-medium">2</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Section:</td>
-                                                <td class="font-medium text-dark-medium">Pink</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Roll:</td>
-                                                <td class="font-medium text-dark-medium">10005</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Address:</td>
-                                                <td class="font-medium text-dark-medium">House #10, Road #6, Australia</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Phone:</td>
-                                                <td class="font-medium text-dark-medium">+ 88 98568888418</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                            </div>
+                            <div class="single-info-details">
+                                <div class="item-img">
+                                    <img src="./uploads/st_photo/<?php echo $st_data['profile_image'] ?>" alt="student">
+                                </div>
+                                <div class="item-content">
+                                    <div class="header-inline item-header">
+                                        <h3 class="text-dark-medium font-medium"><?php echo $st_data["first_name"] . " " . $st_data["last_name"]; ?></h3>
+                                    </div>
+                                    <div class="info-table table-responsive">
+                                        <table class="table text-nowrap">
+                                            <tbody>
+                                                <tr>
+                                                    <td>Name:</td>
+                                                    <td class="font-medium text-dark-medium"><?php echo $st_data["first_name"] . " " . $st_data["last_name"]; ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Gender:</td>
+                                                    <td class="font-medium text-dark-medium"><?php echo $st_data["gender"]; ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Date Of Birth:</td>
+                                                    <td class="font-medium text-dark-medium"><?php echo $st_data["birth_date"]; ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Religion:</td>
+                                                    <td class="font-medium text-dark-medium"><?php echo $st_data["religion"]; ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>E-mail:</td>
+                                                    <td class="font-medium text-dark-medium"><?php echo $st_data["email"]; ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Admission Date:</td>
+                                                    <td class="font-medium text-dark-medium"><?php echo $st_data["time_stamp"]; ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Year:</td>
+                                                    <td class="font-medium text-dark-medium"><?php echo $st_data["year"]; ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Session:</td>
+                                                    <td class="font-medium text-dark-medium"><?php echo $st_data["session"]; ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Roll:</td>
+                                                    <td class="font-medium text-dark-medium"><?php echo $st_data["roll"]; ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Phone:</td>
+                                                    <td class="font-medium text-dark-medium"><?php echo $st_data["phone"]; ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Registration Id:</td>
+                                                    <td class="font-medium text-dark-medium"><?php echo $st_data["registration_id"]; ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Blood Group:</td>
+                                                    <td class="font-medium text-dark-medium"><?php echo $st_data["blood_group"]; ?></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                <?php endwhile; ?>
                 <!-- Student Details Area End Here -->
                 <!-- Dashboard Content End Here -->
                 <!-- Social Media Start Here -->

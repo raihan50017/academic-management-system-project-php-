@@ -31,10 +31,10 @@
                             Students</a>
                     </li>
                     <li class="nav-item">
-                        <a href="student-details.html" class="nav-link"><i class="fa fa-angle-right"></i>Student Details</a>
+                        <a href="admitnewstudent.php" class="nav-link"><i class="fa fa-angle-right"></i>Student Details</a>
                     </li>
                     <li class="nav-item">
-                        <a href="admit-form.html" class="nav-link"><i class="fa fa-angle-right"></i>Admission Form</a>
+                        <a href="admitnewstudent.php" class="nav-link"><i class="fa fa-angle-right"></i>Admit New Student</a>
                     </li>
                     <li class="nav-item">
                         <a href="student-promotion.html" class="nav-link"><i class="fa fa-angle-right"></i>Student Promotion</a>

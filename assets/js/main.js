@@ -115,6 +115,7 @@
         if ($.fn.DataTable !== undefined) {
             $('.data-table').DataTable({
                 paging: true,
+                ordering: false,
                 searching: true,
                 info: false,
                 lengthChange: false,
