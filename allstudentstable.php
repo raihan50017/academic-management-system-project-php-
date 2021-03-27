@@ -23,7 +23,7 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="studentData">
                     <?php
                     $servername = "localhost";
                     $username = "root";
@@ -33,7 +33,7 @@
 
                     $conn = connect_database($servername, $username, $password, $dbname);
 
-                    $sql = "SELECT * FROM st_info";
+                    $sql = "SELECT * FROM st_info ORDER BY id DESC";
                     $com_data = $conn->query($sql);
                     while ($st_data = $com_data->fetch_assoc()) : ?>
                         <tr>
@@ -58,8 +58,8 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <a class="dropdown-item" href="studentdetails.php?reg_id=<?php echo $st_data['registration_id']; ?>"><i class="fa fa-user text-dark-pastel-green"></i>View Profile</a>
-                                        <a class="dropdown-item" href="#"><i class="fa fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                        <a class="dropdown-item" href="#"><i class="fa fa-trash text-orange-red text-dark-pastel-green"></i>Delete Student</a>
+                                        <a class="dropdown-item" href="updatestudentdata.php?roll=<?php echo $st_data["roll"] ?>"><i class="fa fa-cogs text-dark-pastel-green"></i>Edit</a>
+                                        <p style="cursor:pointer" class="dropdown-item" href="#" onclick="delete_student(<?php echo $st_data['id']; ?>)"><i class="fa fa-trash text-orange-red text-dark-pastel-green"></i>Delete Student</p>
                                     </div>
                                 </div>
                             </td>

@@ -81,9 +81,11 @@ function get_all_notice()
         $result = $conn->query($sql);
         return $result;
     }
+    $conn->close();
 }
 
 $all_notice = get_all_notice();
+
 
 function test_input($data)
 {
@@ -92,7 +94,6 @@ function test_input($data)
     $data = htmlspecialchars($data);
     return $data;
 }
-
 
 ?>
 
@@ -192,12 +193,15 @@ function test_input($data)
                                     </div>
                                 </div>
                                 <hr>
-                                <div class="notice-board-wrap">
+                                <div class="notice-board-wrap" id="allNotice">
                                     <?php while ($notice_data = $all_notice->fetch_assoc()) : ?>
-                                        <div class="notice-list">
-                                            <div class="post-date bg-skyblue"><?php echo  date('d', strtotime($notice_data["time_stamp"])) . " " . date('F', mktime(0, 0, 0, date('m', strtotime($notice_data["time_stamp"])), 10)) . " " . date('Y', strtotime($notice_data["time_stamp"])); ?></div>
-                                            <h6 class="notice-title"><a href="#"><?php echo $notice_data["notice_title"]; ?></a></h6>
-                                            <div class="entry-meta"> by admin / <span><?php echo date('h:i:s a', strtotime($notice_data["time_stamp"])); ?></span></div>
+                                        <div class="notice-list row">
+                                            <div class="col-11">
+                                                <div class="post-date bg-skyblue"><?php echo  date('d', strtotime($notice_data["time_stamp"])) . " " . date('F', mktime(0, 0, 0, date('m', strtotime($notice_data["time_stamp"])), 10)) . " " . date('Y', strtotime($notice_data["time_stamp"])); ?></div>
+                                                <h6 class="notice-title"><a href="#"><?php echo $notice_data["notice_title"]; ?></a></h6>
+                                                <div class="entry-meta"> by admin / <span><?php echo date('h:i:s a', strtotime($notice_data["time_stamp"])); ?></span></div>
+                                            </div>
+                                            <div class="col-1"><button onclick="delete_notice(<?php echo $notice_data['id']; ?>)" class="btn btn-danger">Delete</button></div>
                                         </div>
                                     <?php endwhile; ?>
                                 </div>
@@ -215,6 +219,7 @@ function test_input($data)
 
             </div>
         </div>
+        <div id="txtHint"></div>
 
         <!-- jquery-->
         <script src="assets/js/jquery-3.3.1.min.js"></script>
@@ -232,6 +237,35 @@ function test_input($data)
         <script src="assets/js/jquery.waypoints.min.js"></script>
         <!-- Custom Js -->
         <script src="assets/js/main.js"></script>
+
+        <script>
+            function update_notice() {
+                const update = "update";
+                $.ajax({
+                    url: "process.php",
+                    data: {
+                        update: update
+                    },
+                    type: "POST",
+                    success: function(data, status) {
+                        $('#allNotice').html(data);
+                    }
+                });
+            }
+
+            function delete_notice(delete_id) {
+                $.ajax({
+                    url: "process.php",
+                    data: {
+                        delete_id: delete_id
+                    },
+                    type: "POST",
+                    success: function(data, status) {
+                        update_notice();
+                    }
+                });
+            }
+        </script>
 
 </body>
 

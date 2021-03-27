@@ -85,6 +85,36 @@
         <script src="assets/js/jquery.dataTables.min.js"></script>
         <!-- Custom Js -->
         <script src="assets/js/main.js"></script>
+        <script>
+            function update_student_table_data() {
+                const update_student_table = "update";
+                $.ajax({
+                    url: "process.php",
+                    data: {
+                        update_student_table: update_student_table
+                    },
+                    type: "POST",
+                    success: function(data, status) {
+                        $('#studentData').html(data);
+
+                    }
+
+                });
+            }
+
+            function delete_student(student_id) {
+                $.ajax({
+                    url: "process.php",
+                    data: {
+                        delete_student_id: student_id
+                    },
+                    type: "POST",
+                    success: function(data, status) {
+                        update_student_table_data();
+                    }
+                });
+            }
+        </script>
 
 </body>
 
